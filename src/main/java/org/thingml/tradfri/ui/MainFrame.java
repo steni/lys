@@ -61,11 +61,7 @@ public class MainFrame extends javax.swing.JFrame implements TradfriGatewayListe
         jTextFieldIP.setText("10.3.1.85");
 
         jButtonConnect.setText("Start");
-        jButtonConnect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConnectActionPerformed(evt);
-            }
-        });
+        jButtonConnect.addActionListener(this::jButtonConnectActionPerformed);
 
         jLabel2.setText("Security Key:");
 
@@ -82,11 +78,7 @@ public class MainFrame extends javax.swing.JFrame implements TradfriGatewayListe
         jTextFieldPRate.setText("5000");
 
         jButtonStop.setText("Stop");
-        jButtonStop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStopActionPerformed(evt);
-            }
-        });
+        jButtonStop.addActionListener(this::jButtonStopActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -174,8 +166,8 @@ public class MainFrame extends javax.swing.JFrame implements TradfriGatewayListe
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectActionPerformed
-        gateway.setGateway_ip(jTextFieldIP.getText());
-        gateway.setSecurity_key(jTextFieldKey.getText());
+        gateway.setGatewayIp(jTextFieldIP.getText());
+        gateway.setSecurityKey(jTextFieldKey.getText());
         prefs.put("TradfriGatewayIP", jTextFieldIP.getText().trim());
         prefs.put("TradfriGatewayKey", jTextFieldKey.getText().trim());
         gateway.startTradfriGateway();
