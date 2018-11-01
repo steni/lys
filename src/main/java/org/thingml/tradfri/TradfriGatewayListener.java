@@ -2,12 +2,12 @@ package org.thingml.tradfri;
 
 public interface TradfriGatewayListener {
        
-    void gateway_initializing();
-    void bulb_discovery_started(int total_devices);
-    void bulb_discovered(LightBulb b);
-    void bulb_discovery_completed();
-    void gateway_started();
-    void gateway_stoped();
-    void polling_started();
-    void polling_completed(int bulb_count, int total_time);
+    default void gateway_initializing() {}
+    default void bulb_discovery_started(int total_devices) {}
+    default void bulb_discovered(LightBulb b) {}
+    default void bulb_discovery_completed() {}
+    default void gateway_started() {}
+    default void gateway_stoped() {}
+    default void polling_started() {}
+    default void polling_completed(int bulb_count, int total_time) {}
 }

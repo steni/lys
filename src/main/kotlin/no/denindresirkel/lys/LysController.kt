@@ -11,11 +11,11 @@ class LysController {
     val counter = AtomicLong()
     private final val config = GatewayConfiguration()
     private final val gateway = TradfriGateway(config.gatewayIp, config.securityKey)
-    private final val gwListener = GWListener()
+    private final val logic = BulbLogic()
 
     init {
         gateway.startTradfriGateway()
-        gateway.addTradfriGatewayListener(gwListener)
+        gateway.addTradfriGatewayListener(logic)
     }
 
     @GetMapping("/greeting")
@@ -23,29 +23,19 @@ class LysController {
             Greeting(counter.incrementAndGet(), "Hello, $name")
 
     @GetMapping("/bulbs",  produces = ["application/json"])
-    fun bulbs() = gwListener.jsonMap()
+    fun bulbs() = logic.jsonMap()
 
     @RequestMapping(value = ["/bulb/{nameOrId}"], method = [RequestMethod.GET])
     fun getCustomerById(@PathVariable("nameOrId") nameOrId: String): Bulb? {
-        return getBulb(nameOrId)
+        return logic.getBulb(nameOrId)
     }
 
     @PostMapping("/bulb")
     fun setBulb(@RequestBody bulb : Bulb): Bulb? {
-        val b = getBulb((bulb.id.toString()))
-        b?.color  = bulb.color
-        return b
+        val b = logic.getBulbForUpdate((bulb.id))
+        b?.isOn = !(b?.isOn)!!
+        return logic.getBulb(bulb.id!!)
     }
-
-    private fun getBulb(nameOrId: String): Bulb? {
-        return try {
-            val id = nameOrId.toInt()
-            gwListener.getBulb(id)
-        } catch (e: NumberFormatException) {
-            gwListener.getBulb(nameOrId)
-        }
-    }
-
 
 
 }
