@@ -5,13 +5,21 @@ import com.google.gson.GsonBuilder
 import org.thingml.tradfri.LightBulb
 import org.thingml.tradfri.TradfriBulbListener
 import org.thingml.tradfri.TradfriGatewayListener
+import javax.servlet.http.HttpServletRequest
 
 class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
     private val bulbView:HashMap<Int?, Bulb> = HashMap()
     private val bulbModel:HashMap<Int?, LightBulb?> = HashMap()
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
-    fun jsonMap(): String = gson.toJson(bulbView.values)
+    fun jsonMap(request: HttpServletRequest): String =
+            gson.toJson(
+                    bulbView.values.map {
+                        val scheme = request.scheme
+                        val server = request.serverName
+                        val port = request.serverPort
+                        val id = it.id
+                        it.copy(href = "$scheme://$server:$port/bulb/$id")})
 
     override fun bulb_discovered(b: LightBulb?) {
         addBulb(b)
