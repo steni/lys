@@ -252,7 +252,7 @@ public class LightBulb {
             e.printStackTrace();
         }
         if (updateListeners) {
-            for (TradfriBulbListener l : listeners) l.bulb_state_changed(this);
+            for (TradfriBulbListener l : listeners) l.bulbStateChanged(this);
         }
     }
 

@@ -149,7 +149,7 @@ public class TradfriGateway implements Runnable {
                         if (json.getInt(TradfriConstants.TYPE) == TradfriConstants.TYPE_BULB) {
                             LightBulb b = new LightBulb(instanceId, this, response);
                             bulbs.add(b);
-                            for (TradfriGatewayListener l : listeners) l.bulb_discovered(b);
+                            for (TradfriGatewayListener l : listeners) l.bulbDiscovered(b);
                         } else if (json.getInt(TradfriConstants.TYPE) == TradfriConstants.TYPE_REMOTE) {
                             Remote r = new Remote(instanceId, this, response);
                             remotes.add(r);

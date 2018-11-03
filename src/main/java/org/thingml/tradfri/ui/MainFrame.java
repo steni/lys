@@ -228,7 +228,7 @@ public class MainFrame extends javax.swing.JFrame implements TradfriGatewayListe
     }
 
     @Override
-    public void bulb_discovered(LightBulb b) {
+    public void bulbDiscovered(LightBulb b) {
         jProgressBarDiscover.setValue(jProgressBarDiscover.getValue() + 1);
         if (b.isOnline() || !jCheckBoxShowOnlyOnline.isSelected()) {
             BulbPanel p = new BulbPanel(b);

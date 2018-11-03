@@ -7,7 +7,7 @@ import org.thingml.tradfri.TradfriBulbListener
 import org.thingml.tradfri.TradfriGatewayListener
 import javax.servlet.http.HttpServletRequest
 
-class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
+class BulbService : TradfriGatewayListener, TradfriBulbListener {
     private val bulbView:HashMap<Int?, Bulb> = HashMap()
     private val bulbModel:HashMap<Int?, LightBulb?> = HashMap()
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
@@ -21,11 +21,11 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
                         val id = it.id
                         it.copy(href = "$scheme://$server:$port/bulb/$id")})
 
-    override fun bulb_discovered(b: LightBulb?) {
+    override fun bulbDiscovered(b: LightBulb?) {
         addBulb(b)
     }
 
-    override fun bulb_state_changed(bulb: LightBulb?) {
+    override fun bulbStateChanged(bulb: LightBulb?) {
         updateView(bulb)
     }
 

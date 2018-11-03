@@ -4,7 +4,7 @@ public interface TradfriGatewayListener {
        
     default void gateway_initializing() {}
     default void bulb_discovery_started(int total_devices) {}
-    default void bulb_discovered(LightBulb b) {}
+    default void bulbDiscovered(LightBulb b) {}
     default void bulb_discovery_completed() {}
     default void gateway_started() {}
     default void gateway_stoped() {}

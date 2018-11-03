@@ -12,11 +12,11 @@ class LysController {
     val counter = AtomicLong()
     private final val config = GatewayConfiguration()
     private final val gateway = TradfriGateway(config.gatewayIp, config.securityKey)
-    private final val logic = BulbLogic()
+    private final val bulbService = BulbService()
 
     init {
         gateway.startTradfriGateway()
-        gateway.addTradfriGatewayListener(logic)
+        gateway.addTradfriGatewayListener(bulbService)
     }
 
     @GetMapping("/greeting")
@@ -24,19 +24,19 @@ class LysController {
             Greeting(counter.incrementAndGet(), "Hello, $name")
 
     @GetMapping("/bulbs",  produces = ["application/json"])
-    fun bulbs(request: HttpServletRequest) = logic.jsonMap(request)
+    fun bulbs(request: HttpServletRequest) = bulbService.jsonMap(request)
 
     @RequestMapping(value = ["/bulb/{nameOrId}"], method = [RequestMethod.GET])
     fun getCustomerById(@PathVariable("nameOrId") nameOrId: String): Bulb? {
-        return logic.getBulb(nameOrId)
+        return bulbService.getBulb(nameOrId)
     }
 
     @PostMapping("/bulb")
     fun setBulb(@RequestBody bulb : Bulb): Bulb? {
-        val b = logic.getBulbForUpdate((bulb.id))
+        val b = bulbService.getBulbForUpdate((bulb.id))
         b?.isOn = bulb.isOn!!
         b?.color = bulb.color
-        return logic.getBulb(bulb.id!!)
+        return bulbService.getBulb(bulb.id!!)
     }
 
 
