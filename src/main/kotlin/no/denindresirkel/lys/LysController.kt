@@ -26,7 +26,7 @@ class LysController {
     @GetMapping("/bulbs",  produces = ["application/json"])
     fun bulbs(request: HttpServletRequest) = logic.jsonMap(request)
 
-    @CrossOrigin(origins = ["https://127.0.0.1:8443"])
+    @CrossOrigin(origins = ["*"])
     @RequestMapping(value = ["/bulb/{nameOrId}"], method = [RequestMethod.GET])
     fun getCustomerById(@PathVariable("nameOrId") nameOrId: String): Bulb? {
         return logic.getBulb(nameOrId)
