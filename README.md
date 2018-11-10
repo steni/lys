@@ -30,7 +30,7 @@ Then you'll be ready to start the server:
 mvn spring-boot:run
 ```
 
-Now you'll have the server up and running, and you should be able to connect see your bulbs at
+Now you'll have the server up and running, and you should be able to connect to it and see your bulbs at
 <a target="_blank" href="https://127.0.0.1:8443/bulbs">https://127.0.0.1:8443/bulbs</a>
 
 The first time you visit that page, your browser will warn you that the site is unsecure, as it has a "self-signed" certificate. 
