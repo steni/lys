@@ -1,16 +1,16 @@
-#Lys: Program your IKEA Trådfri lights using ScratchX
+# Lys: Program your IKEA Trådfri lights using ScratchX
 
 **Lys** allows you or your kids to control your IKEA Trådfri lights by programming them, using the visual programming language Scratch.
 
 Lys consists of two parts: a server and a ScratchX Extension.
 
-##The Lys Server
+## The Lys Server
 The server connects to your IKEA Tråfri Gateway, and creates *endpoints* the Scratch Extension can use to communicate with your light bulbs.
 
-##The Lys Block Extension
+## The Lys Block Extension
 The extension is a small program you will load in to ScratchX; it will create new blocks you can use to query and control your lighting.
 
-##Getting started
+## Getting started
 Download the server and import the encryption key:
 ```
 git clone git@github.com:steni/lys.git
@@ -73,5 +73,5 @@ Click the button that says "Load Experimental Extension", and under the heading 
 
 This will give you several new blocks that can query and control your lighting!
 
-#Credits
+## Credits
 The code for <a target="_blank" href="https://github.com/ffleurey/ThingML-Tradfri">communicating with the IKEA Trådfri gateway</a> is written by Franck Fleurey  
