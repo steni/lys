@@ -63,7 +63,7 @@ public class LightBulb {
             array.put(settings);
             json.put(TradfriConstants.LIGHT, array);
             settings.put(TradfriConstants.DIMMER, intensity);
-            settings.put(TradfriConstants.TRANSITION_TIME, 5);
+            settings.put(TradfriConstants.TRANSITION_TIME, 0);
             String payload = json.toString();
             gateway.set(TradfriConstants.DEVICES + "/" + this.getId(), payload);
 

@@ -2,44 +2,26 @@ package no.denindresirkel.lys
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import org.thingml.tradfri.LightBulb
-import org.thingml.tradfri.TradfriBulbListener
-import org.thingml.tradfri.TradfriGatewayListener
+import org.thingml.tradfri.*
 import javax.servlet.http.HttpServletRequest
 
-class BulbService : TradfriGatewayListener, TradfriBulbListener {
-    private val bulbView:HashMap<Int?, Bulb> = HashMap()
-    private val bulbModel:HashMap<Int?, LightBulb?> = HashMap()
+class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
+    private val bulbView: HashMap<Int?, BulbView> = HashMap()
+    private val bulbModel: HashMap<Int?, LightBulb?> = HashMap()
+
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
-    fun jsonMap(request: HttpServletRequest): String =
-            gson.toJson(
-                    bulbView.values.map {
-                        val scheme = request.scheme
-                        val server = request.serverName
-                        val port = request.serverPort
-                        val id = it.id
-                        it.copy(href = "$scheme://$server:$port/bulb/$id")})
+    private val config = GatewayConfiguration()
+    private val gateway = TradfriGateway(config.gatewayIp, config.securityKey)
 
-    override fun bulbDiscovered(b: LightBulb?) {
-        addBulb(b)
+    init {
+        gateway.startTradfriGateway()
+        gateway.addTradfriGatewayListener(this)
     }
 
-    override fun bulbStateChanged(bulb: LightBulb?) {
-        updateView(bulb)
-    }
+    fun getBulb(id: Int): BulbView? = bulbView[id]
 
-    private fun updateView(b: LightBulb?) {
-        bulbView[b?.id] = Bulb(b?.id, b?.name, b?.isOn, b?.color)
-    }
-
-    private fun addBulb(b: LightBulb?) {
-        bulbView[b?.id] = Bulb(b?.id, b?.name, b?.isOn, b?.color)
-        bulbModel[b?.id] = b
-        b?.addLightBulbListener(this)
-    }
-
-    fun getBulb(nameOrId: String): Bulb? {
+    fun getBulb(nameOrId: String): BulbView? {
         return try {
             val id = nameOrId.toInt()
             getBulb(id)
@@ -48,18 +30,63 @@ class BulbService : TradfriGatewayListener, TradfriBulbListener {
         }
     }
 
-    fun getBulbForUpdate(id: Int?): LightBulb? {
-        return bulbModel[id]
+    fun getBulbForUpdate(id: Int) = bulbModel[id]
+
+    fun getBulbForUpdate(nameOrId: String): LightBulb? {
+        return try {
+            val id = nameOrId.toInt()
+            getBulbForUpdate(id)
+        } catch (e: NumberFormatException) {
+            getBulbForUpdateByName(nameOrId)
+        }
     }
 
-    fun getBulb(id: Int): Bulb? {
-        return bulbView[id]
+    fun allBulbsOn() {
+        bulbModel.forEach { it.value?.isOn = true }
     }
 
-    private fun getBulbByName(name: String): Bulb? {
+    fun allBulbsOff() {
+        bulbModel.forEach { it.value?.isOn = false }
+    }
+
+    private fun getBulbByName(name: String): BulbView? {
         return bulbView.filter {
             it.value.name == name
         }.values.first()
+    }
+
+    private fun getBulbForUpdateByName(name: String): LightBulb? {
+        return bulbModel.filter {
+            it.value?.name == name
+        }.values.first()
+    }
+
+    fun jsonMap(request: HttpServletRequest): String =
+            gson.toJson(
+                    bulbView.values.map {
+                        val scheme = request.scheme
+                        val server = request.serverName
+                        val port = request.serverPort
+                        val id = it.id
+                        it.copy(href = "$scheme://$server:$port/bulb/$id")
+                    })
+
+    override fun bulb_discovered(b: LightBulb?) {
+        addBulb(b)
+    }
+
+    override fun bulb_state_changed(bulb: LightBulb?) {
+        updateView(bulb)
+    }
+
+    private fun addBulb(b: LightBulb?) {
+        bulbView[b?.id] = BulbView(b!!.id, b.name, b.isOn, b.color, b.intensity)
+        bulbModel[b.id] = b
+        b.addLightBulbListener(this)
+    }
+
+    private fun updateView(b: LightBulb?) {
+        bulbView[b?.id] = BulbView(b!!.id, b.name, b.isOn, b.color, b.intensity)
     }
 
 }

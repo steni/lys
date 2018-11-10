@@ -22,7 +22,7 @@ public class TradfriGateway implements Runnable {
 
     private String gatewayIp;
     private String securityKey;
-    private int polling_rate = 5000;
+    private int polling_rate = 30000;
     private boolean running = false;
 
     public TradfriGateway() {
