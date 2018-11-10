@@ -97,6 +97,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>no.denindresirkel.lys.LysApplicationKt</mainClass>
+                </configuration>
 			</plugin>
 			<plugin>
 				<artifactId>kotlin-maven-plugin</artifactId>

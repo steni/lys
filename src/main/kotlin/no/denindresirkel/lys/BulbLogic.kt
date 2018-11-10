@@ -6,8 +6,9 @@ import org.thingml.tradfri.*
 import javax.servlet.http.HttpServletRequest
 
 class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
-    private val bulbView: HashMap<Int?, Bulb> = HashMap()
+    private val bulbView: HashMap<Int?, BulbView> = HashMap()
     private val bulbModel: HashMap<Int?, LightBulb?> = HashMap()
+
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
     private val config = GatewayConfiguration()
@@ -18,10 +19,9 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
         gateway.addTradfriGatewayListener(this)
     }
 
-    fun getBulbForUpdate(id: Int) = bulbModel[id]
-    fun getBulb(id: Int): Bulb? = bulbView[id]
+    fun getBulb(id: Int): BulbView? = bulbView[id]
 
-    fun getBulb(nameOrId: String): Bulb? {
+    fun getBulb(nameOrId: String): BulbView? {
         return try {
             val id = nameOrId.toInt()
             getBulb(id)
@@ -29,6 +29,8 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
             getBulbByName(nameOrId)
         }
     }
+
+    fun getBulbForUpdate(id: Int) = bulbModel[id]
 
     fun getBulbForUpdate(nameOrId: String): LightBulb? {
         return try {
@@ -47,7 +49,7 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
         bulbModel.forEach { it.value?.isOn = false }
     }
 
-    private fun getBulbByName(name: String): Bulb? {
+    private fun getBulbByName(name: String): BulbView? {
         return bulbView.filter {
             it.value.name == name
         }.values.first()
@@ -77,14 +79,14 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
         updateView(bulb)
     }
 
-    private fun updateView(b: LightBulb?) {
-        bulbView[b?.id] = Bulb(b!!.id, b.name, b.isOn, b.color)
-    }
-
     private fun addBulb(b: LightBulb?) {
-        bulbView[b?.id] = Bulb(b!!.id, b.name, b.isOn, b.color)
+        bulbView[b?.id] = BulbView(b!!.id, b.name, b.isOn, b.color, b.intensity)
         bulbModel[b.id] = b
         b.addLightBulbListener(this)
+    }
+
+    private fun updateView(b: LightBulb?) {
+        bulbView[b?.id] = BulbView(b!!.id, b.name, b.isOn, b.color, b.intensity)
     }
 
 }
