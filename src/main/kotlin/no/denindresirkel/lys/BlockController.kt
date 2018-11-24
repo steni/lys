@@ -12,13 +12,15 @@ class BlockController {
         val classLoader = javaClass.classLoader
         val resource = classLoader.getResource("js/lys.js")
         val txt = resource.readText(Charsets.UTF_8)
+        val href = href(request)
+        return txt.replace("https://127.0.0.1:8443", href)
+    }
 
+    private fun href(request: HttpServletRequest): String {
         val scheme = request.scheme
         val server = request.serverName
         val port = request.serverPort
 
-        val href = "$scheme://$server:$port"
-        
-        return txt.replace("https://127.0.0.1:8443", href)
+        return "$scheme://$server:$port"
     }
 }
