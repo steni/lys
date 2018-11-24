@@ -69,7 +69,7 @@ Now you are ready to go to ScratchX!
 In your browser, go to <a target="_blank" href="http://scratchx.org/#scratch">http://scratchx.org/#scratch</a>.
 
 Click the button that says "Load Experimental Extension", and under the heading of "Open an Extension URL", paste the following url:
-<a target="_blank" href="https://steni.github.io/scratch/scratchx/lys.js">https://steni.github.io/scratch/scratchx/lys.js</a>.
+<a target="_blank" href="https://127.0.0.1:8443/lys.js">https://127.0.0.1:8443/lys.js</a>.
 
 This will give you several new blocks that can query and control your lighting!
 
