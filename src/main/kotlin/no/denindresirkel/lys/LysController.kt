@@ -1,5 +1,6 @@
 package no.denindresirkel.lys
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -11,9 +12,9 @@ import javax.servlet.http.HttpServletRequest
  */
 @RestController
 @CrossOrigin(origins = ["*"])
-class LysController {
-    private final val bulbs = BulbLogic()
-
+class LysController @Autowired constructor(
+        private val bulbs: BulbLogic
+) {
     /* Get all bulbs */
     @GetMapping("/bulbs", produces = ["application/json"])
     fun bulbs(request: HttpServletRequest) = bulbs.jsonMap(request)

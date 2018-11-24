@@ -1,6 +1,8 @@
 package org.thingml.tradfri;
 
+import no.denindresirkel.lys.State;
 import org.eclipse.californium.core.CoapResponse;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -264,4 +266,7 @@ public class LightBulb {
         return result;
     }
 
+    public void transitionTo(@NotNull State state) {
+
+    }
 }
