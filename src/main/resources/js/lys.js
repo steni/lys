@@ -1,5 +1,6 @@
 (function (ext) {
 
+    var baseUrl = "https://127.0.0.1:8443";
     var bulbs = null;  // An array of bulbs
     var bulbNames = [];
     var bulbIds = [];
@@ -9,7 +10,7 @@
      */
     if (bulbs == null) {
         $.ajax({
-            url: 'https://127.0.0.1:8443/bulbs',
+            url: baseUrl + '/bulbs',
             dataType: 'json',
             async: false,
             success: function (bulbs_data) {
@@ -83,7 +84,7 @@
 
     function get_bulb_data(infoElement, bulbId, callback) {
         $.ajax({
-            url: 'https://127.0.0.1:8443/bulb/' + bulbId,
+            url: baseUrl + '/bulb/' + bulbId,
             dataType: 'json',
             success: function (bulb_data) {
                 callback(bulb_data[infoElement]);
@@ -97,7 +98,7 @@
      * @param state - on or off
      */
     ext.set_on_off = function (bulb, state) {
-        $.ajax({url: "https://127.0.0.1:8443/bulb/" + bulb + "/" + state});
+        $.ajax({url: baseUrl + "/bulb/" + bulb + "/" + state});
     };
 
     /**
@@ -105,7 +106,7 @@
      * @param state - on / off
      */
     ext.set_all_on_off = function (state) {
-        $.ajax({url: "https://127.0.0.1:8443/bulbs/" + state});
+        $.ajax({url: baseUrl + "/bulbs/" + state});
     };
 
     /**
@@ -114,7 +115,7 @@
      * @param intensity - from 0 - 254
      */
     ext.set_intensity = function (bulb, intensity) {
-        $.ajax({url: "https://127.0.0.1:8443/bulb/" + bulb + "/intensity/" + intensity});
+        $.ajax({url: baseUrl + "/bulb/" + bulb + "/intensity/" + intensity});
     };
 
     /**
@@ -123,7 +124,7 @@
      * @param color - hex, e.f., f1e0b5
      */
     ext.set_color = function (bulb, color) {
-        $.ajax({url: "https://127.0.0.1:8443/bulb/" + bulb + "/color/" + color});
+        $.ajax({url: baseUrl + "/bulb/" + bulb + "/color/" + color});
     };
 
     /**
@@ -134,7 +135,7 @@
      * @param b
      */
     ext.set_color_rgb = function (bulb, r, g, b) {
-        $.ajax({url: "https://127.0.0.1:8443/bulb/" + bulb + "/color/r/" + r + "/g/" + g + "/b/" + b});
+        $.ajax({url: baseUrl + "/bulb/" + bulb + "/color/r/" + r + "/g/" + g + "/b/" + b});
     };
 
 

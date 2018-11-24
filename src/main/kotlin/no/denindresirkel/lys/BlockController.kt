@@ -10,7 +10,7 @@ class BlockController {
     @GetMapping("/lys.js", produces = ["application/javascript"])
     fun blocks(request: HttpServletRequest): String {
         val classLoader = javaClass.classLoader
-        val resource = classLoader.getResource("js/blocks.js")
+        val resource = classLoader.getResource("js/lys.js")
         val txt = resource.readText(Charsets.UTF_8)
 
         val scheme = request.scheme
