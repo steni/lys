@@ -17,8 +17,8 @@ class BlockController {
         val server = request.serverName
         val port = request.serverPort
 
-        val href = "$scheme://$server:$port/"
+        val href = "$scheme://$server:$port"
         
-        return txt.replace("https://127.0.0.1:8443/", href)
+        return txt.replace("https://127.0.0.1:8443", href)
     }
 }
