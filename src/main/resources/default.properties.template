@@ -1,0 +1,3 @@
+# rename this file to default.properties fill in info below, and delete this line
+gatewayIp=your.gateway.id
+securityKey=found_at_bottom_of_box
