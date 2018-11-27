@@ -325,7 +325,7 @@ public class BulbPanel extends javax.swing.JPanel implements TradfriBulbListener
         updating = false;
     }
     
-    public void bulb_state_changed(LightBulb bulb) {
+    public void bulbStateChanged(LightBulb bulb) {
         if (this.bulb == bulb)  updatePanelContent();
     }
 }

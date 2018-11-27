@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest
 class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
     private val bulbView: HashMap<Int, BulbView> = HashMap()
     private val bulbModel: HashMap<Int, LightBulb> = HashMap()
+    private val kotlinBulb: HashMap<Int, Bulb> = HashMap() // developed in parallel for now
 
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
@@ -31,6 +32,8 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
             getBulbByName(nameOrId)
         }
     }
+
+    fun getKotlinBulb(id: Int): Bulb? = kotlinBulb[id]
 
     fun getBulbForUpdate(id: Int) = bulbModel[id]
 
@@ -77,7 +80,7 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
         addBulb(b)
     }
 
-    override fun bulb_state_changed(bulb: LightBulb) {
+    override fun bulbStateChanged(bulb: LightBulb) {
         updateView(bulb)
     }
 
@@ -85,6 +88,12 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
         bulbView[b.id] = BulbView(b.id, b.name, b.isOn, b.color, b.intensity)
         bulbModel[b.id] = b
         b.addLightBulbListener(this)
+
+        // new Kotlin class, created in parallel for now
+        val state = State(b.id, b.name, b.isOn, b.color, b.intensity)
+        val bulb = Bulb(state)
+        b.addLightBulbListener(bulb)
+
     }
 
     private fun updateView(b: LightBulb) {

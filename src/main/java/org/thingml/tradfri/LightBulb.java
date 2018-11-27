@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,10 @@ public class LightBulb {
     private JSONObject jsonObject;
 
     private List<TradfriBulbListener> listeners = new ArrayList<TradfriBulbListener>();
+
+    public Predicate<Integer> intensityGT = intensity -> (intensity.compareTo(this.intensity) < 0);
+    public Predicate<Integer> intensityLT = intensity -> (intensity.compareTo(this.intensity) > 0);
+    public Predicate<Integer> intensityEQ = intensity -> (intensity.compareTo(this.intensity) == 0);
 
     public void addLightBulbListener(TradfriBulbListener l) {
         listeners.add(l);
@@ -254,7 +259,7 @@ public class LightBulb {
             e.printStackTrace();
         }
         if (updateListeners) {
-            for (TradfriBulbListener l : listeners) l.bulb_state_changed(this);
+            for (TradfriBulbListener l : listeners) l.bulbStateChanged(this);
         }
     }
 
