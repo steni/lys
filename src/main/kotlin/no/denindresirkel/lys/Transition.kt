@@ -1,13 +1,13 @@
 package no.denindresirkel.lys
 
-import org.thingml.tradfri.LightBulb
 import java.time.temporal.TemporalAmount
 
-class Transition(val bulb: LightBulb?) {
+class Transition(val bulb: Bulb) {
     private val conditions: MutableList<Condition> = mutableListOf()
-    private lateinit var state: State
 
-    fun set(state: State): Transition {
+    lateinit var state: State
+
+    fun to(state: State): Transition {
         this.state = state
         return this
     }
@@ -21,7 +21,19 @@ class Transition(val bulb: LightBulb?) {
         return this
     }
 
-    fun start() {
+    fun add(condition: Condition): Transition {
+        return iff(condition)
+    }
 
+    fun conditionsMet(): Boolean {
+        return allConditionsMet() || noConditions()
+    }
+
+    private fun noConditions(): Boolean {
+        return conditions.size == 0
+    }
+
+    private fun allConditionsMet(): Boolean {
+        return conditions.all { it.test() }
     }
 }

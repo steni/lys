@@ -33,6 +33,8 @@ mvn spring-boot:run
 Now you'll have the server up and running, and you should be able to connect to it and see your bulbs at
 <a target="_blank" href="https://127.0.0.1:8443/bulbs">https://127.0.0.1:8443/bulbs</a>
 
+(You can find out what IP your machine is)
+
 The first time you visit that page, your browser will warn you that the site is unsecure, as it has a "self-signed" certificate. 
 
 Different browsers handle this in different ways, but no matter what browser you are using, you have to proceed despite the warnings in order for the browser to accept the Lys server, which again is necessary for the ScratchX Extension to function.

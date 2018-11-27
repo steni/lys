@@ -90,7 +90,7 @@ class BulbLogic : TradfriGatewayListener, TradfriBulbListener {
         b.addLightBulbListener(this)
 
         // new Kotlin class, created in parallel for now
-        val state = State(b.id, b.name, b.isOn, b.color, b.intensity)
+        val state = State(b.isOn, b.color, b.intensity)
         val bulb = Bulb(state)
         b.addLightBulbListener(bulb)
 
