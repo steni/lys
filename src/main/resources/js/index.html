@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOYYY!</title>
+</head>
+<body>
+<h1>Hey, what´ up??</h1>
+<p>Bro</p>
+<button onclick="lampe1Av()">Lampe 1 av</button>
+<button onclick="lampe1Paa()">Lampe1 paa</button>
+<button onclick="conradsLampeRoed()">Conrad Rød</button>
+<button onclick="conradsLampeBlaa()">Blå</button>
+<button onclick="conradsLampeSkifteFarger()">ConradsLampeSkifterFarger>
+<button onclick="conradsLampeGroenn()">Groenn</button>
+</body>
+
+<script>
+    var conradsLampe = "65548";
+
+    function lampe1Av() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/off");
+        xhttp.send();
+    }
+
+    function lampe1Paa() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/on");
+        xhttp.send();
+    }
+
+
+    function conradsLampeRoed() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/13/g/2/b/1");
+        xhttp.send();
+
+    }
+
+    function conradsLampeBlaa() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/1/g/2/b/3");
+        xhttp.send();
+    }
+
+
+    function conradsLampeGroenn() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/0/g/100/b/0 ");
+        xhttp.send();
+    }
+
+
+    function conradsLampeSkifteFarger() {
+            sleep()
+                .then(conradsLampeRoed)
+                .then(sleep)
+                .then(conradsLampeBlaa)
+                .then(sleep)
+                .then(conradsLampeGroenn)
+                .then(sleep)
+                .then()
+    }
+
+
+    const sleep = () => {
+        return new Promise(resolve => setTimeout(resolve, 750))
+    }
+
+    /*
+    https://192.168.86.41:8443/bulb/65548/color/r/12/g/12/b/12
+     */
+
+</script>
+
+</html>
+
