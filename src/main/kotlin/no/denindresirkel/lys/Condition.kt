@@ -1,15 +1,16 @@
 package no.denindresirkel.lys
 
-import java.util.function.Predicate
-
-class Condition private constructor(private val predicate: Predicate<Any>, private val value: Any) {
+class Condition private constructor(private val predicate: ((Int) -> Boolean)?, private val value: Int) {
 
     fun test(): Boolean {
-        return predicate.test(value)
+        if (predicate != null) {
+            return predicate.invoke(value)
+        }
+        return false
     }
 
     companion object {
-        fun from(predicate: ((Int) -> Boolean)?, value: Any): Condition {
+        fun from(predicate: ((Int) -> Boolean)?, value: Int): Condition {
             return Condition(predicate, value)
         }
 

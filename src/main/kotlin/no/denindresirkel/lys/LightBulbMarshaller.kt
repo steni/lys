@@ -3,10 +3,10 @@ package no.denindresirkel.lys
 import org.thingml.tradfri.LightBulb
 
 object LightBulbMarshaller {
-    fun from(b: LightBulb?): State? {
+    fun stateFrom(b: LightBulb?): State {
         if (b != null) {
-            return State(b.id, b.name, b.isOn, b.color, b.intensity)
+            return State(b.isOn, if (b.color == null) {""} else {b.color}, b.intensity)
         }
-        return null
+        return State()
     }
 }

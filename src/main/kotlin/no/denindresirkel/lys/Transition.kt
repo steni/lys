@@ -1,18 +1,34 @@
 package no.denindresirkel.lys
 
-import java.time.temporal.TemporalAmount
+import java.time.Duration
 
 class Transition(val bulb: Bulb) {
+    var fromState: State
+    lateinit var toState: State    /* Required destination state */
+    var time: Duration? = null
+    var response: Response = Response.UNINITIALIZED
     private val conditions: MutableList<Condition> = mutableListOf()
 
-    lateinit var state: State
+    enum class Response {
+        OK, INITIATED, RUNNING, FINISHED, CONDITIONS_NOT_MET, FAILED, UNINITIALIZED
+    }
 
-    fun to(state: State): Transition {
-        this.state = state
+    init {
+        fromState = bulb.state
+    }
+
+    fun from(state: State): Transition {
+        this.fromState = state
         return this
     }
 
-    fun using(time: TemporalAmount): Transition {
+    fun to(state: State): Transition {
+        this.toState = state
+        return this
+    }
+
+    fun using(time: Duration): Transition {
+        this.time = time
         return this
     }
 
@@ -35,5 +51,9 @@ class Transition(val bulb: Bulb) {
 
     private fun allConditionsMet(): Boolean {
         return conditions.all { it.test() }
+    }
+
+    fun validate() {
+        checkNotNull(toState)
     }
 }

@@ -16,8 +16,8 @@ class Experiment @Autowired constructor(
         val alreadyOn = Condition.from(bulb?.intensityGT, 0)
         val state = State(true, "ffffff", 254)
         if (bulb != null) {
-            val transition = Transition(bulb).to(state).using(tenSeconds).iff(alreadyOn)
-            transitioner.execute(transition)
+            val transition = Transition(bulb).from(bulb.state).to(state).using(tenSeconds).iff(alreadyOn)
+            var status = transitioner.execute(transition)
         }
     }
 }
