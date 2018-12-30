@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BOYYY!</title>
+    <title>ConradLampe</title>
 </head>
 <body>
-<h1>Hey, what´ up??</h1>
+<h1></h1>
 <p>Bro</p>
 <button onclick="lampe1Av()">Lampe 1 av</button>
 <button onclick="lampe1Paa()">Lampe1 paa</button>
@@ -13,6 +13,7 @@
 <button onclick="conradsLampeBlaa()">Blå</button>
 <button onclick="conradsLampeSkifteFarger()">ConradsLampeSkifterFarger</button>
 <button onclick="conradsLampeGroenn()">Groenn</button>
+<button onclick="conradsLampeOransje()">Oransje</button>
 </body>
 
 <script>
@@ -32,25 +33,27 @@
 
 
     function conradsLampeRoed() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/13/g/2/b/1");
-        xhttp.send();
+        conradsLampeRGB(100, 0,0);
 
     }
 
     function conradsLampeBlaa() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/1/g/2/b/3");
-        xhttp.send();
+        conradsLampeRGB(0, 0, 100);
     }
-
 
     function conradsLampeGroenn() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/0/g/100/b/0 ");
-        xhttp.send();
+        conradsLampeRGB(0, 100, 0);
     }
 
+    function conradsLampeOransje() {
+        conradsLampeRGB(255, 165, 0);
+    }
+
+    function conradsLampeRGB(r, g, b) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/" + r + "/g/" + g + "/b/" + b);
+        xhttp.send();
+    }
 
     function conradsLampeSkifteFarger() {
             sleep()
@@ -60,6 +63,9 @@
                 .then(sleep)
                 .then(conradsLampeGroenn)
                 .then(sleep)
+                .then(conradsLampeOransje)
+                .then(sleep)
+                .then(conradsLampeGroenn)
                 .then()
     }
 
