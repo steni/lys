@@ -54,6 +54,13 @@
         xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/" + r + "/g/" + g + "/b/" + b);
         xhttp.send();
     }
+    function conradsLampe() {
+        conradLampe
+
+    }
+
+
+
 
     function conradsLampeSkifteFarger() {
             sleep()
@@ -66,7 +73,7 @@
                 .then(conradsLampeOransje)
                 .then(sleep)
                 .then(conradsLampeGroenn)
-                .then()
+                .then(sleep)
     }
 
 
@@ -78,6 +85,7 @@
           TODO:
           loope
           hvordan få den til å stoppe på samme farge som den startet, når den sykler gjennom farger? - spørre, og variabler
+          knapper som pluss / minus på R, G og B, forenklere å finne farger
      */
 
 </script>
