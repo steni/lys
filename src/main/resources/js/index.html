@@ -5,19 +5,39 @@
     <title>ConradLampe</title>
 </head>
 <body>
-<h1></h1>
-<p>Bro</p>
-<button onclick="lampe1Av()">Lampe 1 av</button>
+<h1>Conrads lys</h1>
+<p></p>
+<button onclick="lampe1Av() ">Lampe 1 av</button>
 <button onclick="lampe1Paa()">Lampe1 paa</button>
-<button onclick="conradsLampeRoed()">Conrad Rød</button>
+<h1>farge</h1>
+<button onclick="conradsLampeRoed()">Rød</button>
 <button onclick="conradsLampeBlaa()">Blå</button>
-<button onclick="conradsLampeSkifteFarger()">ConradsLampeSkifterFarger</button>
-<button onclick="conradsLampeGroenn()">Groenn</button>
+<button onclick="conradsLampeSkifteFarger()">conradsLampeSkifteFarger</button>
+<button onclick="conradsLampeGroenn()">Grønn</button>
 <button onclick="conradsLampeOransje()">Oransje</button>
+<button onclick="conradsLampeFinOgVarm()">Fin og varm</button>
+<button onclick="conradsLampeSterkRoed()">sterk rød </button>
+<button onclick="conradsLampeLyseGroenn()">lyse grønn</button>  
+<button onclick="conradsLampeRosa()">Rosa</button>
+<button onclick="conradsLampeSterkBlaa()">Sterk blå</button>
+<button onclick="conradsLampeGroennGul()">Grønn/Gul</button>
+<button onclick="conradsLampeSkifteFarger2()">Av og på</button> <--(Jobber på)
+<button onclick="conradsLampeMoorkeLilla()">Mørke lilla</button>
+<button onclick="conradsLampeGul()">Gul</button>
+<button onclick="conradsLampeGraa()">Grå</button>
+<button onclick="conradsLampeSterk()">Sterkere</button>
+<button onclick="conradsLampeSvakere()">Svakere</button>
+<button onclick="conradsLampeMidtIMellom()">Midt i mellom</button>
+<button onclick="conradsLampeTurkis()">Turkis</button>
+<button onclick="sakteAv()">Sakte av</button>
+<button onclick="random()">Random</button>
+
+
 </body>
+</html>
 
 <script>
-    var conradsLampe = "65548";
+    var conradsLampe = "65568";
 
     function lampe1Av() {
         var xhttp = new XMLHttpRequest();
@@ -54,8 +74,86 @@
         xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/color/r/" + r + "/g/" + g + "/b/" + b);
         xhttp.send();
     }
-    function conradsLampe() {
-        conradLampe
+    function conradsLampeFinOgVarm() {
+        conradsLampeRGB(230, 200, 100);
+    }
+
+    function conradsLampeSterkRoed() {
+        conradsLampeRGB(200, 50, 0);
+
+    }
+    function conradsLampeLyseGroenn() {
+        conradsLampeRGB(0, 250, 0);
+    }
+    function conradsLampeRosa() {
+        conradsLampeRGB(254, 0, 254);
+    }
+    function conradsLampeSterkBlaa() {
+        conradsLampeRGB(0, 0, 254);
+    }
+
+    function conradsLampeGroenn() {
+        conradsLampeRGB(0, 254, 0)       ;
+
+    }
+    function conradsLampeSkifteFarger2() {
+        sleep()
+            .then()
+            .then(sleep)
+            .then()
+
+    }
+    function conradsLampeGraa() {
+        conradsLampeRGB(128, 128, 128)
+
+    }
+    function intensity (i) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://192.168.86.41:8443/bulb/" + conradsLampe + "/intensity/" + i);
+        xhttp.send();
+
+    }
+    function conradsLampeSterk() {
+        intensity(254);
+
+    }
+    function conradsLampeSvakere() {
+        intensity(1);
+
+
+    }
+    function conradsLampeMidtIMellom() {
+        intensity(127);
+    }
+
+    function sakteAv() {
+        sleep()
+            .then(sleep)
+            .then(conradsLampeSterk)
+            .then(sleep)
+            .then(conradsLampeMidtIMellom)
+            .then(sleep)
+            .then(lampe1Av)
+    }
+
+    function conradsLampeGul() {
+        conradsLampeRGB(255, 200, 0)
+
+    }
+
+    function conradsLampeMoorkeLilla() {
+        conradsLampeRGB(160, 32, 240);
+    }
+
+    function conradsLampeTurkis() {
+        conradsLampeRGB(64, 224, 208);
+
+    }
+    function random() {
+        var r = Math.floor ((Math.random() * 254) + 0);
+        var g = Math.floor ((Math.random() * 254) + 0);
+        var b = Math.floor ((Math.random() * 254) + 0);
+        RGB(r, g, b);
 
     }
 
@@ -63,17 +161,27 @@
 
 
     function conradsLampeSkifteFarger() {
-            sleep()
-                .then(conradsLampeRoed)
-                .then(sleep)
-                .then(conradsLampeBlaa)
-                .then(sleep)
-                .then(conradsLampeGroenn)
-                .then(sleep)
-                .then(conradsLampeOransje)
-                .then(sleep)
-                .then(conradsLampeGroenn)
-                .then(sleep)
+        sleep()
+            .then(conradsLampeRoed)
+            .then(sleep)
+            .then(conradsLampeBlaa)
+            .then(sleep)
+            .then(conradsLampeGroenn)
+            .then(sleep)
+            .then(conradsLampeOransje)
+            .then(sleep)
+            .then(conradsLampeGroenn)
+            .then(sleep)
+            .then(conradsLampeSterkRoed)
+            .then(sleep)
+            .then(conradsLampeMoorkeLilla)
+            .then(sleep)
+            .then(conradsLampeSterkBlaa)
+            .then(sleep)
+            .then(conradsLampeGul)
+            .then(sleep)
+            .then()
+
     }
 
 
@@ -89,7 +197,5 @@
      */
 
 </script>
-
-</html>
 
 
